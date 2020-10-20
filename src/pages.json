@@ -1,0 +1,231 @@
+{
+  "tabBar": {
+    "color": "#CDCDCD",
+    "selectedColor": "#FFFFFF",
+    "borderStyle": "black",
+    "backgroundColor": "#c79448",
+    "list": []
+  },
+  "pages": [{
+      "path": "pages/tabBar/home/home",
+      "style": {
+        "navigationBarTitleText": "首页",
+        "app-plus": {
+          "bounce": "vertical",
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/tabBar/wallet/wallet",
+      "style": {
+        "navigationBarTitleText": "钱包",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/tabBar/my/my",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/request/contract",
+      "style": {
+        "navigationBarTitleText": "借款合同",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/request/request",
+      "style": {
+        "navigationBarTitleText": "借款",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/repayment/list",
+      "style": {
+        "navigationBarTitleText": "还款计划",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/withdraw/withdraw",
+      "style": {
+        "navigationBarTitleText": "提现",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/bankcard/bankcard",
+      "style": {
+        "navigationBarTitleText": "银行卡",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/bankcard/newBankCard",
+      "style": {
+        "navigationBarTitleText": "添加银行卡"
+      }
+    },
+    {
+      "path": "pages/form/idcard/idcard",
+      "style": {
+        "navigationBarTitleText": "实名认证",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/socialinfo/socialinfo",
+      "style": {
+        "navigationBarTitleText": "个人资料",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [{
+              "text": "\ue8bf",
+              "fontSrc": "/static/uni.ttf",
+              "fontSize": "28px",
+              "color": "#FFFFFF"
+            }]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/form/password/reset",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
+    },
+    {
+      "path": "pages/webview/webview",
+      "style": {
+        "navigationBarTitleText": "客服"
+      }
+    },
+    {
+      "path": "pages/auth/sign-in",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        },
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/auth/sign-up",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        },
+        "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "platforms/app-plus/push/push",
+      "style": {
+        "navigationBarTitleText": "推送"
+      }
+    },
+    {
+      "path": "pages/about/about",
+      "style": {
+        "navigationBarTitleText": "关于"
+      }
+    }
+  ],
+  "globalStyle": {
+    "pageOrientation": "portrait",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "花嘛",
+    "navigationBarBackgroundColor": "#c79448",
+    "backgroundColor": "#F8F8F8",
+    "backgroundColorTop": "#F4F5F6",
+    "backgroundColorBottom": "#F4F5F6",
+    "mp-360": {
+      "navigationStyle": "custom"
+    }
+  }
+}
