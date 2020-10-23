@@ -1,44 +1,87 @@
 <template>
-  <view class="uni-container request-form" style="background-color: transparent;">
+  <view
+    class="uni-container request-form"
+    style="background-color: transparent"
+  >
     <view class="uni-flex uni-column">
       <view class="uni-flex uni-column">
-        <view class="uni-flex uni-row" style="border-bottom: darkgray 1rpx solid;">
-          <label style="font-size: 2em;">¥</label>
-          <input v-model="form.amount" class="uni-input request-input" maxlength="6" placeholder="借多少" />
+        <view
+          class="uni-flex uni-row"
+          style="border-bottom: darkgray 1rpx solid"
+        >
+          <label style="font-size: 2em">¥</label>
+          <input
+            v-model="form.amount"
+            class="uni-input request-input"
+            maxlength="6"
+            placeholder="借多少"
+          />
         </view>
-        <text style="color: gray; padding: 1em 0;">{{form.minAmount}} 元起借，单笔最高 30,0000 元</text>
+        <text style="color: gray; padding: 1em 0"
+          >{{ form.minAmount | toThousandFilter }} 元起借，单笔最高 {{ form.maxAmount | toThousandFilter }} 元</text
+        >
 
         <view class="uni-flex uni-column request-tips" v-if="!form.amount">
-          <text>
-            温馨提示
-          </text>
-          <text>
-            借款并按期还款即有机会提高额度，降低利率。
-          </text>
+          <text> 温馨提示 </text>
+          <text> 借款并按期还款即有机会提高额度，降低利率。 </text>
         </view>
-        <view class="request-cal request-tips" v-else-if="form.amount >= form.minAmount">
+        <view
+          class="request-cal request-tips"
+          v-else-if="form.minAmount <= form.amount && form.amount <= form.maxAmount"
+        >
           <uni-list>
             <uni-list-item title="怎么还" :rightText="form.refund" />
-            <uni-list-item showArrow clickable title="借多久" :rightText="form.duration" @click="onShowDurationPicker()" />
-            <uni-list-item showArrow clickable title="借款用途" :rightText="form.purpose" @click="onShowPurposePicker()" />
-            <uni-list-item showArrow clickable title="收银银行卡" :rightText="`${form.accountBank}(${form.accountNo.substr(-4)})`" />
+            <uni-list-item
+              showArrow
+              clickable
+              title="借多久"
+              :rightText="form.duration"
+              @click="onShowDurationPicker()"
+            />
+            <uni-list-item
+              showArrow
+              clickable
+              title="借款用途"
+              :rightText="form.purpose"
+              @click="onShowPurposePicker()"
+            />
+            <uni-list-item
+              showArrow
+              clickable
+              title="收银银行卡"
+              :rightText="`${form.accountBank}(${form.accountNo.substr(-4)})`"
+            />
           </uni-list>
         </view>
       </view>
 
       <view class="uni-flex uni-column request-from-licence">
         <!--text>提交借款表示您已阅读并同意借款协议</text-->
-        <button class="uni-color-warning request-btn" @click="onConfirm">申请借款</button>
+        <button class="uni-color-warning request-btn" @click="onConfirm">
+          申请借款
+        </button>
       </view>
     </view>
 
     <!--周期选择-->
-    <w-picker mode="selector" :visible.sync="durationPickerVisible" :value="form.duration" default-type="name" :options="durations"
-      @confirm="onPickDuration($event, 'selector')"></w-picker>
+    <w-picker
+      mode="selector"
+      :visible.sync="durationPickerVisible"
+      :value="form.duration"
+      default-type="name"
+      :options="durations"
+      @confirm="onPickDuration($event, 'selector')"
+    ></w-picker>
 
     <!--目的选择-->
-    <w-picker mode="selector" :visible.sync="purposePickerVisible" :value="form.purpose" default-type="name" :options="purposes"
-      @confirm="onPickPurpose($event, 'selector')"></w-picker>
+    <w-picker
+      mode="selector"
+      :visible.sync="purposePickerVisible"
+      :value="form.purpose"
+      default-type="name"
+      :options="purposes"
+      @confirm="onPickPurpose($event, 'selector')"
+    ></w-picker>
   </view>
 </template>
 
@@ -49,8 +92,9 @@
     mapGetters
   } from 'vuex';
   import {
+    ParamActions,
+    RequestActions,
     UserActions,
-    RequestActions
   } from '../../../store/actions.js';
 
   export default {
@@ -59,9 +103,11 @@
     data() {
       return {
         form: {
-          amount: 10000,
+          // 默认借款限额为 1 ~ 30 w
           minAmount: 10000,
-          
+          maxAmount: 300000,
+
+          amount: 10000,
           refund: '每月等额,按期还款',
           duration: '12个月',
           purpose: '个人日常消费',
@@ -117,13 +163,29 @@
       ...mapGetters(['userInfo']),
     },
     
-    onLoad() {
+    async onLoad() {
+      this.getLoanRange();
+
       this.form.accountNo = this.userInfo.bankCard.accountNo;
       this.form.accountName = this.userInfo.bankCard.accountName;
       this.form.accountBank = this.userInfo.bankCard.accountBank;
     },
 
     methods: {
+      async getLoanRange() {
+        try {
+          const res = await this.$store.dispatch(ParamActions.GetParam, {
+            name: 'loan.range'
+          });
+          this.form.minAmount = res.minAmount;
+          this.form.maxAmount = res.maxAmount;
+
+          this.form.amount = this.form.minAmount;
+        } catch(e) {
+          console.error(e);
+        }
+      },
+
       onShowLicence() {},
 
       onShowDurationPicker() {
@@ -170,46 +232,47 @@
 </script>
 
 <style>
-  @import '../../../common/uni-nvue.css';
+@import "../../../common/uni-nvue.css";
 
-  .request-form {}
+.request-form {
+}
 
-  .request-input {
-    background-color: transparent;
-    font-size: 2em;
-  }
+.request-input {
+  background-color: transparent;
+  font-size: 2em;
+}
 
-  .request-tips {
-    margin-top: 20upx;
-    color: gray;
-    background-color: #EFEFEF;
-    padding: 30upx;
-    font-size: 0.8em;
-    border-radius: 10upx;
-  }
+.request-tips {
+  margin-top: 20upx;
+  color: gray;
+  background-color: #efefef;
+  padding: 30upx;
+  font-size: 0.8em;
+  border-radius: 10upx;
+}
 
-  .request-cal {
-    background-color: white;
-    border-radius: 20rpx;
-  }
+.request-cal {
+  background-color: white;
+  border-radius: 20rpx;
+}
 
-  .request-from-licence {
-    margin-top: 100rpx;
-    text-align: center;
-    font-size: 0.9em;
-    color: gray;
-  }
+.request-from-licence {
+  margin-top: 100rpx;
+  text-align: center;
+  font-size: 0.9em;
+  color: gray;
+}
 
-  .request-btn {
-    width: 100%;
-    margin-top: 1em;
-    border-radius: 50upx;
-  }
+.request-btn {
+  width: 100%;
+  margin-top: 1em;
+  border-radius: 50upx;
+}
 
-  .request-btn::after {
-    background-color: #c79448;
-    content: '提交借款';
-    font-size: 2em;
-    color: white;
-  }
+.request-btn::after {
+  background-color: #c79448;
+  content: "提交借款";
+  font-size: 2em;
+  color: white;
+}
 </style>
