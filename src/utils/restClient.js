@@ -25,8 +25,13 @@ export default {
       header['Authorization'] = 'Bearer ' + store.getters.userInfo.accessToken
     }
 
+    // API 前缀从当前文档的源中提取，避免配置麻烦
+    let apiPrefix = process.env.VUE_APP_API_PREFIX || window.location.origin;
+    apiPrefix = apiPrefix.replace(':8080', '');
+    apiPrefix = apiPrefix.replace('/#', '');
+
     const [error, res] = await uni.request({
-      url: process.env.VUE_APP_API_PREFIX + path,
+      url: apiPrefix + path,
       method: method,
       header: header,
       data: data
