@@ -22,6 +22,9 @@
       <uni-card mode="style" :is-shadow="true" :thumbnail="idCard.p2Url || '../../../static/common/user_base_2.jpg'"
         :extra="idCard.p2Url ? '身份证反面' : '选择身份证反面'" @click="onChooseSide2">
       </uni-card>
+      <uni-card mode="style" :is-shadow="true" :thumbnail="idCard.p3Url || '../../../static/common/user_base_2.jpg'"
+        :extra="idCard.p3Url ? '手持身份证照' : '选择手持身份证照'" @click="onChooseSide3">
+      </uni-card>
     </view>
 
     <button class="add-btn" type="primary" @click="onSave" v-if="!userInfo.idCard">确定</button>
@@ -52,6 +55,7 @@
           cardNo: '',
           p1Url: '',
           p2Url: '',
+          p3Url: '',
         }
       }
     },
@@ -101,12 +105,30 @@
         });
       },
 
+      onChooseSide3() {
+        if (this.userInfo.idCard) return;
+        
+        const self = this;
+        uni.chooseImage({
+          count: 1,
+          sizeType: ['compressed'],
+          success: function(res) {
+            pathToBase64(res.tempFilePaths[0]).then(base64 => {
+              self.idCard.p3Url = base64.replace(/[\r\n]/g, '');
+            }).catch(error => {
+              console.error(error)
+            });
+          }
+        });
+      },
+
       async onSave() {
         try {
           if (!this.idCard.name) return this.toast('姓名不能为空');
           if (!this.idCard.cardNo) return this.toast('身份证号不能为空');
           if (!this.idCard.p1Url) return this.toast('实名需要提供身份证正面照片');
           if (!this.idCard.p2Url) return this.toast('实名需要提供身份证反面照片');
+          if (!this.idCard.p3Url) return this.toast('实名需要提供手持身份证照片');
 
           const [err, res] = await this.confirm('提交不可更改，确定提交？', '提交确认');
           if (!res.confirm) return;
