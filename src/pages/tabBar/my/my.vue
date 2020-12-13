@@ -180,7 +180,6 @@
           this.showLoading();
 
           await this.$store.dispatch(UserActions.UserSignOut, {});
-          // this.goToPage('/pages/auth/sign-in', false);
           
           this.$jsBridge.call('webSignOut', {});
         } catch (e) {
