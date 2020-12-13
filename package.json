@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:h5": "cross-env NODE_ENV=development UNI_PLATFORM=h5 vue-cli-service uni-serve --mode dev",
-    "build:h5": "cross-env NODE_ENV=production UNI_PLATFORM=h5 vue-cli-service uni-build --mode prod",
+    "dev": "cross-env NODE_ENV=development UNI_PLATFORM=h5 vue-cli-service uni-serve --mode dev",
+    "build": "cross-env NODE_ENV=production UNI_PLATFORM=h5 vue-cli-service uni-build --mode prod",
     "info": "node node_modules/@dcloudio/vue-cli-plugin-uni/commands/info.js",
     "serve:quickapp-native": "node node_modules/@dcloudio/uni-quickapp-native/bin/serve.js",
     "test:h5": "cross-env UNI_PLATFORM=h5 jest -i"
