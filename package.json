@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development UNI_PLATFORM=h5 vue-cli-service uni-serve --mode dev",
-    "build": "cross-env NODE_ENV=production UNI_PLATFORM=h5 vue-cli-service uni-build --mode prod",
+    "build": "cross-env NODE_ENV=production UNI_PLATFORM=h5 vue-cli-service uni-build --no-clean --mode prod",
     "info": "node node_modules/@dcloudio/vue-cli-plugin-uni/commands/info.js",
     "serve:quickapp-native": "node node_modules/@dcloudio/uni-quickapp-native/bin/serve.js",
     "test:h5": "cross-env UNI_PLATFORM=h5 jest -i"
@@ -49,12 +49,14 @@
     "@vue/cli-service": "^3.12.0",
     "babel-plugin-import": "^1.11.0",
     "cross-env": "^7.0.2",
+    "javascript-obfuscator": "^2.9.4",
     "jest": "^25.4.0",
     "mini-types": "*",
     "miniprogram-api-typings": "*",
     "postcss-comment": "^2.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack-obfuscator": "2.6.0"
   },
   "browserslist": [
     "Android >= 4",
